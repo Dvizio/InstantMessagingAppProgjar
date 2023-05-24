@@ -20,7 +20,8 @@ class ClientHandler extends Thread {
             objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
             username = (String) objectInputStream.readObject();
-            System.out.println("User " + username + " Memasuki Chat.");
+            String userJoinedMessageString = "User " + username + " Memasuki Chat."; 
+            System.out.println(userJoinedMessageString);
 
             Messages message;
             do {
@@ -38,7 +39,7 @@ class ClientHandler extends Thread {
                         userCount++;
                     }
                     System.out.println(serverMessage);
-                    Messages onlineUsersMessage = new Messages("server", serverMessage);
+                    Messages onlineUsersMessage = new Messages("server", username, serverMessage);
                     sendMessage(onlineUsersMessage);
                 } else {
                     // Private message
