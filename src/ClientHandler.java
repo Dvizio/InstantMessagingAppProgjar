@@ -28,7 +28,7 @@ class ClientHandler extends Thread {
 
                 if (message.getReceiver() == null) {
                     ClientInputHandler.broadcast(message, clients);
-                } else if (message.getReceiver().equals("server")) {
+                } else if (message.getReceiver().equals("server") && message.getMessageContent().equals("getOnlineUsers")) {
                     List<String> onlineUsers = ClientInputHandler.getOnlineUsers(clients);
                     int userCount = 1;
                     String serverMessage = "";
@@ -46,10 +46,15 @@ class ClientHandler extends Thread {
                 }
 
             } while (!message.getMessageContent().equals("bye"));
-            Messages terminationMessage = new Messages(username, "server", "Termination Message");
+            Messages terminationMessage = new Messages("server", username, "bye");
             sendMessage(terminationMessage);
             clients.remove(this);
-            System.out.println("User " + username + " meninggalkan chat.");
+
+            String terminationNotificationString = "User " + username + " meninggalkan chat.";
+            System.out.println(terminationNotificationString);
+
+            Messages terminationNotificationMessage = new Messages("server", terminationNotificationString);
+            ClientInputHandler.broadcast(terminationNotificationMessage, clients);
 
             objectOutputStream.close();
             objectInputStream.close();

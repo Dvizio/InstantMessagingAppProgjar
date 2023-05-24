@@ -20,7 +20,7 @@ public class inputHandler extends Thread {
                 String command = inputParts[0].toLowerCase();
 
                 if (command.equals("users")) {
-                    Messages requestUsersMessage = new Messages(username, "server", "");
+                    Messages requestUsersMessage = new Messages(username, "server", "getOnlineUsers");
                     oos.writeObject(requestUsersMessage);
                     oos.flush();
                 } else if (command.equals("private")) {
@@ -33,7 +33,7 @@ public class inputHandler extends Thread {
                         oos.writeObject(privateMessage);
                         oos.flush();
                     }
-                } else if (command.equals("exit")) {
+                } else if (command.equals("quit")) {
                     // remove user from online users
                     Messages exitMessage = new Messages(username, "server", "bye");
                     oos.writeObject(exitMessage);

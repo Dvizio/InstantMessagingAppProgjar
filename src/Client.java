@@ -42,13 +42,13 @@ public class Client {
             System.out.println("List of commands: ");
             System.out.println("users - to see online users");
             System.out.println("private <username> <message> - to send message to a user");
-            System.out.println("exit - to exit the chatroom");
+            System.out.println("quit - to quit the chatroom");
 
             while ((message = (Messages) ois.readObject()) != null
                     && !message.getSender().equals("bye")) {
                 if (message.getMessageContent().equals("bye")) {
                     break;
-                } else if (message.getSender().equals("server")) {
+                } else if (message.getSender().equals("server") && !message.getMessageContent().equals("bye") && message.isPrivate()) {
                     System.out.println("Online users: \n" + message.getMessageContent());
                 } else {
                     System.out.println(message.getSender() + ": " + message.getMessageContent());
