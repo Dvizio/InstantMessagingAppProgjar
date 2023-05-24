@@ -37,8 +37,19 @@ public class Client {
             inputHandler.start();
 
             Messages message;
-            while ((message = (Messages) ois.readObject()) != null) {
-                if (message.getSender().equals("server")) {
+            // add welcome and list of menu
+            System.out.println("Welcome to the chatroom, " + username + "!");
+            System.out.println("List of commands: ");
+            System.out.println("list - to see online users");
+            System.out.println("private <username> <message> - to send message to a user");
+            System.out.println("exit - to exit the chatroom");
+
+            while ((message = (Messages) ois.readObject()) != null
+            && !message.getSender().equals("bye")){
+                if(message.getMessageContent().equals("bye")){
+                    break;
+                }
+                else if (message.getSender().equals("server")) {
                     System.out.println("Online users: \n" + message.getMessageContent());
                 } else {
                     System.out.println(message.getSender() + ": " + message.getMessageContent());
