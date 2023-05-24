@@ -46,7 +46,9 @@ class ClientHandler extends Thread {
                 }
 
             } while (!message.getMessageContent().equals("bye"));
-
+            Messages terminationMessage = new Messages(username, "server", "Termination Message");
+            sendMessage(terminationMessage);
+            clients.remove(this);
             System.out.println("User " + username + " meninggalkan chat.");
 
             objectOutputStream.close();

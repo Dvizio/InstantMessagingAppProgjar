@@ -33,7 +33,15 @@ public class inputHandler extends Thread{
                         oos.writeObject(privateMessage);
                         oos.flush();
                     }
-                } else {
+                }
+                else if (command.equals("exit")) {
+                    //remove user from online users
+                    Messages exitMessage = new Messages(username, "server", "bye");
+                    oos.writeObject(exitMessage);
+                    oos.flush();
+                    break;
+                }
+                 else {
                     Messages broadcastMessage = new Messages(username, null, input);
                     oos.writeObject(broadcastMessage);
                     oos.flush();
