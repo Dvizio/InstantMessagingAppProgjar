@@ -4,19 +4,19 @@ public class Messages implements Serializable {
     private String sender;
     private String receiver;
     private String messageContent;
-    private boolean isPrivate;
+    private boolean Private;
 
     public Messages(String sender, String messageContent) {
         this.sender = sender;
         this.messageContent = messageContent;
-        isPrivate = false;
+        Private = false;
     }
 
     public Messages(String sender, String receiver, String messageContent) {
         this.sender = sender;
         this.receiver = receiver;
         this.messageContent = messageContent;
-        isPrivate = true;
+        Private = true;
     }
 
     public String getSender() {
@@ -31,7 +31,7 @@ public class Messages implements Serializable {
         return messageContent;
     }
 
-    public boolean isPrivate(){
-        return isPrivate;
+    public boolean isPrivate() {
+        return Private;
     }
 }

@@ -1,11 +1,11 @@
 import java.io.*;
 
-public class inputHandler extends Thread{
+public class inputHandler extends Thread {
     private BufferedReader reader;
     private ObjectOutputStream oos;
     private String username;
 
-    public inputHandler(BufferedReader reader, ObjectOutputStream oos, String username){
+    public inputHandler(BufferedReader reader, ObjectOutputStream oos, String username) {
         this.reader = reader;
         this.oos = oos;
         this.username = username;
@@ -13,13 +13,13 @@ public class inputHandler extends Thread{
 
     @Override
     public void run() {
-        try{
+        try {
             while (true) {
                 String input = reader.readLine();
                 String[] inputParts = input.split(" ", 3);
                 String command = inputParts[0].toLowerCase();
-    
-                if (command.equals("list")) {
+
+                if (command.equals("users")) {
                     Messages requestUsersMessage = new Messages(username, "server", "");
                     oos.writeObject(requestUsersMessage);
                     oos.flush();
@@ -33,22 +33,19 @@ public class inputHandler extends Thread{
                         oos.writeObject(privateMessage);
                         oos.flush();
                     }
-                }
-                else if (command.equals("exit")) {
-                    //remove user from online users
+                } else if (command.equals("exit")) {
+                    // remove user from online users
                     Messages exitMessage = new Messages(username, "server", "bye");
                     oos.writeObject(exitMessage);
                     oos.flush();
                     break;
-                }
-                 else {
+                } else {
                     Messages broadcastMessage = new Messages(username, null, input);
                     oos.writeObject(broadcastMessage);
                     oos.flush();
                 }
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

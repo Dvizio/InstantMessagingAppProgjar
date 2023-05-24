@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientInputHandler{
+public class ClientInputHandler {
     public static void broadcast(Messages message, List<ClientHandler> clients) {
         for (ClientHandler client : clients) {
             client.sendMessage(message);
@@ -16,7 +16,8 @@ public class ClientInputHandler{
         return onlineUsers;
     }
 
-    public static void sendPrivateMessage(String sender, String receiver, Messages message, List<ClientHandler> clients) {
+    public static void sendPrivateMessage(String sender, String receiver, Messages message,
+            List<ClientHandler> clients) {
         for (ClientHandler client : clients) {
             if (client.getUsername().equals(receiver)) {
                 client.sendMessage(message);
