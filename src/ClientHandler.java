@@ -16,11 +16,11 @@ class ClientHandler extends Thread {
 
     public void run() {
         try {
-            objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        	objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
             username = (String) objectInputStream.readObject();
-            System.out.println("User " + username + " Memasuki Chat!");
+            System.out.println("User " + username + " Memasuki Chat.");
 
             Messages message;
             do {
@@ -32,10 +32,10 @@ class ClientHandler extends Thread {
                     List<String> onlineUsers = ClientInputHandler.getOnlineUsers(clients);
                     int userCount = 1;
                     String serverMessage = "";
-                    for (String user : onlineUsers) {
-                        System.out.println(user);
-                        serverMessage = serverMessage.concat(Integer.toString(userCount) + "." + user + "\n");
-                        userCount++;
+                    for(String user : onlineUsers) {
+                    	System.out.println(user);
+                    	serverMessage = serverMessage.concat(Integer.toString(userCount)+ "." + user + "\n");
+                    	userCount++;
                     }
                     System.out.println(serverMessage);
                     Messages onlineUsersMessage = new Messages("server", serverMessage);
@@ -72,3 +72,4 @@ class ClientHandler extends Thread {
         return username;
     }
 }
+
